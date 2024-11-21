@@ -4,6 +4,7 @@ export async function main(ns) {
 	const files = ["scripts/weaken.js", "scripts/grow.js", "scripts/hack.js", "main.js"];
 	const threads = Math.floor(ns.getServerMaxRam(target) / ns.getScriptRam("scripts/weaken.js"));
 
+	let cycle = 0;
 	let neighbor = ns.scan(target).filter(hostname => hostname !== "home");
 	let time = {
 		w: ns.getWeakenTime(target) + 5,
@@ -14,6 +15,8 @@ export async function main(ns) {
 	ns.scp(files, target);
 
 	while(true) {
+		ns.print("INFO "," ---------------- cycle: " + cycle + " -------------------");
+		cycle ++;
 		if (neighbor.length > 0) {
 			if (ns.isRunning("main.js", target, neighbor[0])) {
 				neighbor.shift();
