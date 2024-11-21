@@ -16,7 +16,11 @@ export async function main(ns) {
 
 	while(True) {
 		if(ns.getHackingLevel() < getServerRequiredHackingLevel(target) && neighbor.length > 0) {
-			ns.exec("main.js", home, 1, neighbor.shift());
+			if (ns.isRunning("main.js", target, neighbor[0])) {
+				neighbor.shift();
+			} else {
+				ns.exec("main.js", home, 1, neighbor.shift());
+			}
 		} else {
 			if (ns.getServerMoneyAvailable(target) < ns.getServerMaxMoney(target) * 0.9) {
 				await ns.exec("scripts/grow.js", target, threads);
