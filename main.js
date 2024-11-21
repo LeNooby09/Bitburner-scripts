@@ -28,7 +28,7 @@ export async function main(ns) {
 				if (ns.getServerMoneyAvailable(target) < ns.getServerMaxMoney(target) * 0.9) {
 					ns.exec("scripts/grow.js", target, threads, target);
 					await ns.sleep(time.g);
-				} else if (ns.getServerSecurityLevel(target) > 0.2) {
+				} else if (ns.getServerSecurityLevel(target) > ns.getServerMinSecurityLevel(target) * 1.1) {
 					ns.exec("scripts/weaken.js", target, threads, target);
 					await ns.sleep(time.w);
 				} else {
