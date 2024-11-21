@@ -21,15 +21,19 @@ export async function main(ns) {
 				ns.exec("main.js", "home", 1, neighbor.shift());
 			}
 		} else {
-			if (ns.getServerMoneyAvailable(target) < ns.getServerMaxMoney(target) * 0.9) {
-				await ns.exec("scripts/grow.js", target, threads);
-				await ns.sleep(time.g);
-			} else if (ns.getServerSecurityLevel(target) > 0.2) {
-				await ns.exec("scripts/weaken.js", target, threads);
-				await ns.sleep(time.w);
+			if (ns.hasRootAccess(target)) {
+				if (ns.getServerMoneyAvailable(target) < ns.getServerMaxMoney(target) * 0.9) {
+					await ns.exec("scripts/grow.js", target, threads);
+					await ns.sleep(time.g);
+				} else if (ns.getServerSecurityLevel(target) > 0.2) {
+					await ns.exec("scripts/weaken.js", target, threads);
+					await ns.sleep(time.w);
+				} else {
+					await ns.exec("scripts/hack.js", target, threads);
+					await ns.sleep(time.h);
+				}
 			} else {
-				await ns.exec("scripts/hack.js", target, threads);
-				await ns.sleep(time.h);
+				throw new Error("No root access to " + target);
 			}
 		}
 	}
