@@ -14,8 +14,8 @@ export async function main(ns) {
 
 	ns.scp(files, target);
 
-	while(true) {
-		ns.print("INFO "," ---------------- cycle: " + cycle + " -------------------");
+	while (true) {
+		ns.print("INFO ", " ---------------- cycle: " + cycle + " -------------------");
 		cycle ++;
 		if (neighbor.length > 0) {
 			if (ns.isRunning("main.js", target, neighbor[0])) {
