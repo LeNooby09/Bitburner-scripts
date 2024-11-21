@@ -5,11 +5,10 @@ export async function main(ns) {
 	const threads = Math.floor(ns.getServerMaxRam(target) / ns.getScriptRam("scripts/weaken.js"));
 
 	let neighbor = ns.scan(target).filter(hostname => hostname !== "home");
-	let Time
-	{
-		let w = ns.getWeakenTime(target) + 5;
-		let h = ns.getHackTime(target) + 5;
-		let g = ns.getGrowTime(target) + 5;
+	let time = {
+		w: ns.getWeakenTime(target) + 5,
+		h: ns.getHackTime(target) + 5,
+		g: ns.getGrowTime(target) + 5
 	}
 
 	ns.scp(files, target);
