@@ -15,7 +15,7 @@ export async function main(ns) {
 	ns.scp(files, target);
 
 	while(true) {
-		if(ns.getHackingLevel() < getServerRequiredHackingLevel(target) && neighbor.length > 0) {
+		if(neighbor.length > 0) {
 			if (ns.isRunning("main.js", target, neighbor[0])) {
 				neighbor.shift();
 			} else {
