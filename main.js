@@ -41,3 +41,5 @@ export async function main(ns) {
 		}
 	}
 }
+
+// TODO: Export functions into smaller scripts
