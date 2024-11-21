@@ -19,7 +19,7 @@ export async function main(ns) {
 			if (ns.isRunning("main.js", target, neighbor[0])) {
 				neighbor.shift();
 			} else {
-				ns.exec("main.js", home, 1, neighbor.shift());
+				ns.exec("main.js", "home", 1, neighbor.shift());
 			}
 		} else {
 			if (ns.getServerMoneyAvailable(target) < ns.getServerMaxMoney(target) * 0.9) {
