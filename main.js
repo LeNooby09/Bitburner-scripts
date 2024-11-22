@@ -18,7 +18,7 @@ export async function main(ns) {
 	ns.scp(files, target);
 
 	while (true) {
-		ns.print("INFO ", " ---------------- cycle: " + cycle + " -------------------");
+		ns.print("INFO ", " --------------- cycle: " + cycle + " ------------------");
 		cycle ++;
 		if (ns.getServerMoneyAvailable(dynamicTarget) < ns.getServerMaxMoney(dynamicTarget) * 0.9) {
 			ns.exec("scripts/grow.js", target, threads, dynamicTarget);
