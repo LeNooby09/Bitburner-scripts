@@ -20,12 +20,12 @@ export async function main(ns) {
 	while (true) {
 		ns.print("INFO ", " --------------- cycle: " + cycle + " ------------------");
 		cycle ++;
-		if (ns.getServerMoneyAvailable(dynamicTarget) < ns.getServerMaxMoney(dynamicTarget) * 0.9) {
-			ns.exec("scripts/grow.js", target, threads, dynamicTarget);
-			await ns.sleep(time.g);
-		} else if (ns.getServerSecurityLevel(dynamicTarget) > ns.getServerMinSecurityLevel(dynamicTarget) * 1.1) {
+		if (ns.getServerSecurityLevel(dynamicTarget) > ns.getServerMinSecurityLevel(dynamicTarget) + 5) {
 			ns.exec("scripts/weaken.js", target, threads, dynamicTarget);
 			await ns.sleep(time.w);
+		} else if (ns.getServerMoneyAvailable(dynamicTarget) < ns.getServerMaxMoney(dynamicTarget) * 0.9) {
+			ns.exec("scripts/grow.js", target, threads, dynamicTarget);
+			await ns.sleep(time.g);
 		} else {
 			ns.exec("scripts/hack.js", target, threads, dynamicTarget);
 			await ns.sleep(time.h);
