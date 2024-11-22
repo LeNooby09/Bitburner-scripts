@@ -24,27 +24,19 @@ export async function main(ns) {
 	while (true) {
 		ns.print("INFO ", " ---------------- cycle: " + cycle + " -------------------");
 		cycle ++;
-		if (neighbor.length > 0) {
-			if (ns.isRunning("main.js", target, neighbor[0])) {
-				neighbor.shift();
+		if (ns.hasRootAccess(target)) {
+			if (ns.getServerMoneyAvailable(dynamicTarget) < ns.getServerMaxMoney(dynamicTarget) * 0.9) {
+				ns.exec("scripts/grow.js", target, threads, dynamicTarget);
+				await ns.sleep(time.g);
+			} else if (ns.getServerSecurityLevel(dynamicTarget) > ns.getServerMinSecurityLevel(dynamicTarget) * 1.1) {
+				ns.exec("scripts/weaken.js", target, threads, dynamicTarget);
+				await ns.sleep(time.w);
 			} else {
-				ns.exec("main.js", "home", 1, neighbor.shift());
+				ns.exec("scripts/hack.js", target, threads, dynamicTarget);
+				await ns.sleep(time.h);
 			}
 		} else {
-			if (ns.hasRootAccess(target)) {
-				if (ns.getServerMoneyAvailable(target) < ns.getServerMaxMoney(target) * 0.9) {
-					ns.exec("scripts/grow.js", target, threads, target);
-					await ns.sleep(time.g);
-				} else if (ns.getServerSecurityLevel(target) > ns.getServerMinSecurityLevel(target) * 1.1) {
-					ns.exec("scripts/weaken.js", target, threads, target);
-					await ns.sleep(time.w);
-				} else {
-					ns.exec("scripts/hack.js", target, threads, target);
-					await ns.sleep(time.h);
-				}
-			} else {
-				throw new Error("No root access to " + target);
-			}
+			throw new Error("No root access to " + target);
 		}
 	}
 }
