@@ -6,7 +6,11 @@ export function autocomplete(data, args) {
 export async function main(ns) {
 	const target = ns.args[0] || ns.getHostname();
 	const files = ["scripts/weaken.js", "scripts/grow.js", "scripts/hack.js", "main.js"];
-	const threads = Math.floor(ns.getServerMaxRam(target) / 1.75 );
+
+	let dynamicTarget;
+	if (ns.args[1] === "--focus") { dynamicTarget = ns.args[2]; } else { dynamicTarget = target; }
+
+	const threads = Math.floor((ns.getServerMaxRam(target) - ns.getServerUsedRam(target)) / 1.75 );
 
 	let cycle = 0;
 	let neighbor = ns.scan(target).filter(hostname => hostname !== "home");
