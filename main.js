@@ -4,7 +4,7 @@ export async function main(ns) {
 	const files = ["scripts/weaken.js", "scripts/grow.js", "scripts/hack.js", "main.js"];
 
 	let dynamicTarget;
-	if (ns.args[1] === "--focus") { dynamicTarget = ns.args[2]; } else { dynamicTarget = target; }
+	if (ns.args[1]) { dynamicTarget = ns.args[1]; } else { dynamicTarget = target; }
 
 	const threads = Math.floor((ns.getServerMaxRam(target) - ns.getServerUsedRam(target)) / 1.75 );
 
