@@ -1,8 +1,4 @@
 /** @param {NS} ns */
-export function autocomplete(data, args) {
-	return [data.servers];
-}
-
 export async function main(ns) {
 	const target = ns.args[0] || ns.getHostname();
 	const files = ["scripts/weaken.js", "scripts/grow.js", "scripts/hack.js", "main.js"];
