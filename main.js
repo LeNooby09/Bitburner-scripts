@@ -13,7 +13,6 @@ export async function main(ns) {
 	const threads = Math.floor((ns.getServerMaxRam(target) - ns.getServerUsedRam(target)) / 1.75 );
 
 	let cycle = 0;
-	let neighbor = ns.scan(target).filter(hostname => hostname !== "home");
 	let time = {
 		w: ns.getWeakenTime(target) + 5,
 		h: ns.getHackTime(target) + 5,
