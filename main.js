@@ -15,9 +15,7 @@ export async function main(ns) {
 		g: ns.getGrowTime(dynamicTarget) + 1
 	}
 
-	if (!ns.fileExists(files)) {
-		ns.exec("scripts/install.js", target, 1, files, target);
-	}
+	ns.scp(files, target);
 
 	while (true) {
 		ns.print("INFO ", " --------------- cycle: " + cycle + " ------------------");
