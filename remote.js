@@ -5,4 +5,5 @@ export async function main(ns) {
 	if (ns.args[0]) {
 		port.write(ns.args[0]);
 	}
+	ns.tprint("Target set to: " + port.peek());
 }
