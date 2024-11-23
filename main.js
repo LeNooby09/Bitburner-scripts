@@ -15,8 +15,11 @@ export async function main(ns) {
 		ns.print("INFO ", " --------------- cycle: " + cycle + " ------------------");
 		cycle ++;
 
-		if (!port.empty) { dynamicTarget = port.peek(); }
-		
+		if (!port.empty) {
+			dynamicTarget = port.peek();
+			ns.print("INFO ", "Switching to target: " + dynamicTarget);
+		}
+
 		if (ns.getServerSecurityLevel(dynamicTarget) > ns.getServerMinSecurityLevel(dynamicTarget) + 5) {
 			ns.exec("scripts/weaken.js", target, threads, dynamicTarget);
 			await ns.sleep(ns.getWeakenTime(dynamicTarget) + 50);
