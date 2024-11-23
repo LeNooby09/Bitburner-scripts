@@ -1,7 +1,6 @@
 /** @param {NS} ns */
 export async function main(ns) {
 	const target = ns.args[0] || ns.getHostname();
-	const files = ["scripts/weaken.js", "scripts/grow.js", "scripts/hack.js", "main.js"];
 
 	let dynamicTarget;
 	if (ns.args[1]) { dynamicTarget = ns.args[1]; } else { dynamicTarget = target; }
