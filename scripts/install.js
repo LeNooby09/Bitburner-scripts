@@ -1,4 +1,5 @@
 /** @param {NS} ns */
 export async function main(ns) {
-	ns.scp(ns.args[0], ns.args[1]);
+	const files = ["scripts/weaken.js", "scripts/grow.js", "scripts/hack.js", "main.js"];
+	ns.scp(files, ns.args[0]);
 }
