@@ -1,21 +1,23 @@
 /** @param {NS} ns */
 export async function main(ns) {
 	const target = ns.args[0] || ns.getHostname();
-
-	let dynamicTarget;
-	if (ns.args[1]) { dynamicTarget = ns.args[1]; } else { dynamicTarget = target; }
-
 	const threads = Math.floor((ns.getServerMaxRam(target) - ns.getServerUsedRam(target)) / 1.75 );
 
 	let cycle = 0;
-
 	let port = ns.getPortHandle(1);
+	let dynamicTarget;
+	
+	if (ns.args[1]) {
+		dynamicTarget = ns.args[1];
+	} else {
+		dynamicTarget = target;
+	}
 
 	while (true) {
 		ns.print("INFO ", " --------------- cycle: " + cycle + " ------------------");
 		cycle ++;
 
-		if (!port.empty) {
+		if (!port.empty()) {
 			dynamicTarget = port.peek();
 			ns.print("INFO ", "Switching to target: " + dynamicTarget);
 		}
