@@ -8,24 +8,19 @@ export async function main(ns) {
 	const threads = Math.floor((ns.getServerMaxRam(target) - ns.getServerUsedRam(target)) / 1.75 );
 
 	let cycle = 0;
-	let time = {
-		w: ns.getWeakenTime(dynamicTarget) + 50,
-		h: ns.getHackTime(dynamicTarget) + 50,
-		g: ns.getGrowTime(dynamicTarget) + 50
-	}
 
 	while (true) {
 		ns.print("INFO ", " --------------- cycle: " + cycle + " ------------------");
 		cycle ++;
 		if (ns.getServerSecurityLevel(dynamicTarget) > ns.getServerMinSecurityLevel(dynamicTarget) + 5) {
 			ns.exec("scripts/weaken.js", target, threads, dynamicTarget);
-			await ns.sleep(time.w);
+			await ns.sleep(ns.getWeakenTime(dynamicTarget) + 50);
 		} else if (ns.getServerMoneyAvailable(dynamicTarget) < ns.getServerMaxMoney(dynamicTarget) * 0.9) {
 			ns.exec("scripts/grow.js", target, threads, dynamicTarget);
-			await ns.sleep(time.g);
+			await ns.sleep(ns.getGrowTime(dynamicTarget) + 50);
 		} else {
 			ns.exec("scripts/hack.js", target, threads, dynamicTarget);
-			await ns.sleep(time.h);
+			await ns.sleep(ns.getHackTime(dynamicTarget) + 50);
 		}
 	}
 }
