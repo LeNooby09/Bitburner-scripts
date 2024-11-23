@@ -6,6 +6,6 @@ export async function main(ns) {
   */
   for (const server of ns.getPurchasedServers()) {
     ns.exec("main.js", "home", "1", server, ns.args[0]);
-    await ns.sleep(30000);
+    await ns.sleep(10000);
   }
 }
