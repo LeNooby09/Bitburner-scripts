@@ -9,9 +9,14 @@ export async function main(ns) {
 
 	let cycle = 0;
 
+	let port = ns.getPortHandle(1);
+
 	while (true) {
 		ns.print("INFO ", " --------------- cycle: " + cycle + " ------------------");
 		cycle ++;
+
+		if (!port.empty) { dynamicTarget = port.peek(); }
+		
 		if (ns.getServerSecurityLevel(dynamicTarget) > ns.getServerMinSecurityLevel(dynamicTarget) + 5) {
 			ns.exec("scripts/weaken.js", target, threads, dynamicTarget);
 			await ns.sleep(ns.getWeakenTime(dynamicTarget) + 50);
@@ -24,5 +29,3 @@ export async function main(ns) {
 		}
 	}
 }
-
-// TODO: Export functions into smaller scripts
