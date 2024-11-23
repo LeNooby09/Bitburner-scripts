@@ -9,9 +9,9 @@ export async function main(ns) {
 
 	let cycle = 0;
 	let time = {
-		w: ns.getWeakenTime(dynamicTarget) + 1,
-		h: ns.getHackTime(dynamicTarget) + 1,
-		g: ns.getGrowTime(dynamicTarget) + 1
+		w: ns.getWeakenTime(dynamicTarget) + 5,
+		h: ns.getHackTime(dynamicTarget) + 5,
+		g: ns.getGrowTime(dynamicTarget) + 5
 	}
 
 	while (true) {
