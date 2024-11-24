@@ -22,15 +22,17 @@ export async function main(ns) {
 			ns.print("INFO ", "Switching to target: " + dynamicTarget);
 		}
 
-		if (ns.getServerSecurityLevel(dynamicTarget) > ns.getServerMinSecurityLevel(dynamicTarget) + 5) {
+		if (ns.getServerSecurityLevel(dynamicTarget) <= ns.getServerMinSecurityLevel(dynamicTarget) + 5) {
+			if (ns.getServerMoneyAvailable(dynamicTarget) < ns.getServerMaxMoney(dynamicTarget) * 0.9) {
+				ns.exec("scripts/grow.js", target, threads, dynamicTarget);
+				await ns.sleep(ns.getGrowTime(dynamicTarget) + 50);
+			} else {
+				ns.exec("scripts/hack.js", target, threads, dynamicTarget);
+				await ns.sleep(ns.getHackTime(dynamicTarget) + 50);
+			}
+		} else {
 			ns.exec("scripts/weaken.js", target, threads, dynamicTarget);
 			await ns.sleep(ns.getWeakenTime(dynamicTarget) + 50);
-		} else if (ns.getServerMoneyAvailable(dynamicTarget) < ns.getServerMaxMoney(dynamicTarget) * 0.9) {
-			ns.exec("scripts/grow.js", target, threads, dynamicTarget);
-			await ns.sleep(ns.getGrowTime(dynamicTarget) + 50);
-		} else {
-			ns.exec("scripts/hack.js", target, threads, dynamicTarget);
-			await ns.sleep(ns.getHackTime(dynamicTarget) + 50);
 		}
 	}
 }
