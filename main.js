@@ -6,7 +6,8 @@ export async function main(ns) {
 	let cycle = 0;
 	let port = ns.getPortHandle(1);
 	let dynamicTarget;
-	
+	let printedDebug = false;
+
 	if (ns.args[1]) {
 		dynamicTarget = ns.args[1];
 	} else {
@@ -16,9 +17,12 @@ export async function main(ns) {
 	while (true) {
 		if (!port.empty()) {
 			dynamicTarget = port.peek();
-			ns.print("INFO ", "Switching to target: " + dynamicTarget);
+			if (dynamicTarget !== target) {
+				ns.print("INFO ", "Switching to target: " + dynamicTarget);
+			}
 		}
-		if (ns.getServerUsedRam(target) === 0) {
+		if (ns.getServerUsedRam(target) < ns.getServerMaxRam(target) * 0.9) {
+			printedDebug = false;
 			ns.print("INFO ", " --------------- cycle: " + cycle + " ------------------");
 			cycle ++;
 			if (ns.getServerSecurityLevel(dynamicTarget) <= ns.getServerMinSecurityLevel(dynamicTarget) + 5) {
@@ -34,8 +38,11 @@ export async function main(ns) {
 				await ns.sleep(ns.getWeakenTime(dynamicTarget) + 50);
 			}
 		} else {
-			ns.print("INFO ", "Server " + target + " is not free. Skipping.");
-			await ns.sleep((ns.getGrowTime(target) + ns.getHackTime(target) + ns.getWeakenTime(target)) / 3);
+			if (!printedDebug) {
+				ns.print("INFO ", "Server " + target + " is almost full. Skipping...");
+				printedDebug = true;
+			}
+			await ns.sleep((ns.getGrowTime(dynamicTarget) + ns.getHackTime(dynamicTarget) + ns.getWeakenTime(dynamicTarget)) / 3);
 		}
 	}
 }
