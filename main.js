@@ -42,7 +42,7 @@ export async function main(ns) {
 				ns.print("INFO ", "Server " + target + " is almost full. Skipping...");
 				printedDebug = true;
 			}
-			await ns.sleep((ns.getGrowTime(dynamicTarget) + ns.getHackTime(dynamicTarget) + ns.getWeakenTime(dynamicTarget)) / 3);
+			await ns.sleep(10000);
 		}
 	}
 }
