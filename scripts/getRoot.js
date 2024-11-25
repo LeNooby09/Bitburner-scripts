@@ -5,6 +5,6 @@ export async function main(ns) {
   if (ns.fileExists("sqlinject.exe")) { ns.run("scripts/rootScripts/sql.js", "1", ns.args[0]) }
   if (ns.fileExists("httpworm.exe")) { ns.run("scripts/rootScripts/http.js", "1", ns.args[0]) }
   if (ns.fileExists("relaysmtp.exe")) { ns.run("scripts/rootScripts/smtp.js", "1", ns.args[0]) }
-  ns.sleep(5000);
-  await ns.nuke(ns.args[0]);
+  await ns.sleep(5000);
+  ns.nuke(ns.args[0]);
 }
